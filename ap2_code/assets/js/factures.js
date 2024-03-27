@@ -32,6 +32,9 @@ function displayFacturesHTML(){
     document.write("<td>");
     document.write(myfacture.dateFacturation);
     document.write("</td>");
+    document.write("<td>");
+    document.write(myfacture.coutHT);
+    document.write("</td>");
     document.write("<td><a href='javascript:downloadPDF("+myfacture.numFact+")'>télécharger</a></td>");
     document.write("</tr>");
   }
@@ -47,8 +50,27 @@ function resetAddFactureForm(){
 /** Ajoute une facture dans le local storage, suite à la validation du formulaire
   **/
 function addFacture(){
+  let date = new Date().toLocaleDateString();
+  var newFactureClient = document.getElementById("inputFactureClient").value;
+  var newPrixFacture = document.getElementById("inputFacturePrice").value;
+  var newFacturePresta = document.getElementById("inputFacturePresta").value;
+  var newDate = date;
+
+  if(newFactureClient.trim() === "" || newPrixFacture.trim() === "" || newFacturePresta.trim() === "" ){
+    alert("Tous les champs doivent être remplis !");
+    return;
+  }
+  resetAddFactureForm();
+  var newFacture = {};
+  newFacture.dateFacturation = newDate;
+  newFacture.client = newFactureClient;
+  newFacture.coutHT = newPrixFacture;
+  newFacture.prestation = newFacturePresta;
+
+
   let myStorage = window.localStorage;
   let nbFactures = JSON.parse(myStorage.getItem("nbFactures"));
-
-  //TODO à compléter
+  newFacture.numFact = nbFactures.toString();
+  myStorage.setItem("facture"+nbFactures, JSON.stringify(newFacture));
+  myStorage.setItem("nbFactures", nbFactures+1);
 }

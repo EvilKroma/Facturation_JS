@@ -66,6 +66,13 @@ function addClient(){
   var newClientAddress1 = document.getElementById("inputClientAddress1").value;
   var newClientAddress2 = document.getElementById("inputClientAddress2").value;
   var newClientSIREN = document.getElementById("inputClientSiren").value;
+
+  //Empêche de rendre le formulaire vide, trim enlève les espaces pr rendre le form avec des espaces en guise d'infos
+  if(newClientName.trim() === "" || newClientSIREN.trim() === "" || newClientAddress1.trim() === "" || newClientAddress2.trim() === ""){
+    alert("Tous les champs doivent être remplis !");
+    return;
+  }
+
   resetAddClientForm();
   var newClient = {};
   newClient.name = newClientName;
@@ -74,7 +81,7 @@ function addClient(){
   newClient.address2 = newClientAddress2;
 
   let myStorage = window.localStorage;
-  let nbClients = JSON.parse(myStorage.getItem("nbClients"));
+  let nbClients = JSON.parse(myStorage.getItem("nbClients")) || 0; 
   myStorage.setItem("client"+nbClients, JSON.stringify(newClient));
   myStorage.setItem("nbClients", nbClients+1);
 }
