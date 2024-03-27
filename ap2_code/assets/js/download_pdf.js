@@ -71,32 +71,32 @@ function downloadPDF(numFact){
   doc.setFontSize(12);
   doc.text("Nom :", 100, 32);
   doc.setFontType("normal");
-  doc.text("BijouxShop", 130, 32);
+  doc.text(myClient.name, 130, 32);
   doc.setFontType("bold");
 
   doc.text("N°SIREN :", 100, 39);
   doc.setFontType("normal");
-  doc.text("123 455", 130, 39);
+  doc.text(myClient.siren, 130, 39);
   doc.setFontType("bold");
 
   doc.text("Adresse :", 100, 46);
   doc.setFontType("normal");
-  doc.text("4 rue du Paridis,", 130, 46);
-  doc.text("75012 Paris", 130, 52);
+  doc.text(myClient.address1, 130, 46);
+  doc.text(myClient.address2, 130, 52);
   doc.setFontType("bold");
 
   //TODO compléter
 
   doc.setFontSize(14);
   doc.setFontType("bold");
-  doc.text("Facture n°0 : ", 40, 110);
+  doc.text("Facture n°" + myFacture.numFact, 40, 110);
 
 
   doc.setFontSize(14);
   doc.setFontType("bold");
   doc.text("Objet : ", 20, 140);
   doc.setFontType("normal");
-  doc.text("Facture du 10/02/2021 pour prestations informatiques.", 40, 140);
+  doc.text("Facture du " + myFacture.dateFacturation + " pour prestations informatiques.", 40, 140);
 
   doc.setFontSize(14);
   doc.setFontType("bold");
@@ -104,7 +104,7 @@ function downloadPDF(numFact){
 
   doc.setFontSize(14);
   doc.setFontType("bold");
-  doc.text("Tarif HT (EUR)", 140, 170);
+  doc.text("Tarif TTC (EUR)", 140, 170);
 
   doc.setFontSize(14);
   doc.setFontType("bold");
@@ -112,11 +112,16 @@ function downloadPDF(numFact){
 
   doc.setFontSize(14);
   doc.setFontType("normal");
-  doc.text("Création de maquettes", 20, 185);
+  doc.text(myFacture.prestation, 20, 185);
+
+    var price = myFacture.coutHT;
+    var TVA = 1.2;
+    var result = price * TVA;
+    let TTC = result.toString();
 
   doc.setFontSize(14);
   doc.setFontType("normal");
-  doc.text("350", 140, 185);
+  doc.text(TTC, 140, 185);
 
   doc.setFontSize(14);
   doc.setFontType("bold");

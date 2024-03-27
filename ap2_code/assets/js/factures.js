@@ -53,6 +53,8 @@ function addFacture(){
   let date = new Date().toLocaleDateString();
   var newFactureClient = document.getElementById("inputFactureClient").value;
   var newPrixFacture = document.getElementById("inputFacturePrice").value;
+ 
+  
   var newFacturePresta = document.getElementById("inputFacturePresta").value;
   var newDate = date;
 
